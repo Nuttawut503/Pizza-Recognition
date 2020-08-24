@@ -1,7 +1,7 @@
 part of 'pizza_bloc.dart';
 
 abstract class PizzaState extends Equatable {
-  PizzaState();
+  const PizzaState();
 
   @override
   List<Object> get props => [];
@@ -18,7 +18,7 @@ class ModelLoadSuccess extends PizzaState {
   final bool hasError;
   final double confidentRate;
 
-  ModelLoadSuccess({
+  const ModelLoadSuccess({
     @required this.imagePath,
     @required this.inPredict,
     @required this.hasError,
@@ -85,6 +85,6 @@ class ModelLoadSuccess extends PizzaState {
       'inPredict': $inPredict,
       'hasError': $hasError,
       'confidentRate': $confidentRate
-    }\n''';
+    }''';
   }
 }

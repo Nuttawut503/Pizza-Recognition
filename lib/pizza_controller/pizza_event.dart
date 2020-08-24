@@ -1,7 +1,7 @@
 part of 'pizza_bloc.dart';
 
 abstract class PizzaEvent extends Equatable {
-  PizzaEvent();
+  const PizzaEvent();
 
   @override
   List<Object> get props => [];
@@ -13,4 +13,4 @@ class NewImageButtonPressed extends PizzaEvent {}
 
 class PredictImageRequested extends PizzaEvent {}
 
-class ImageCleared extends PizzaState {}
+class ImageCleared extends PizzaEvent {}

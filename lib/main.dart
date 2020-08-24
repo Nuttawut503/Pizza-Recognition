@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Pizza_Recognition/bloc_debugger.dart';
 import 'package:Pizza_Recognition/view/home_screen.dart';
-import 'package:Pizza_Recognition/view/uninitailized_screen.dart';
+import 'package:Pizza_Recognition/view/uninitialized_screen.dart';
 import 'package:Pizza_Recognition/pizza_controller/pizza_bloc.dart';
 
 void main() {
@@ -27,6 +27,9 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: BlocBuilder<PizzaBloc, PizzaState>(
+        buildWhen: (previousState, currentState) {
+          return previousState.runtimeType != currentState.runtimeType;
+        },
         builder: (context, state) {
           if (state is ModelLoadSuccess) {
             return HomeScreen();

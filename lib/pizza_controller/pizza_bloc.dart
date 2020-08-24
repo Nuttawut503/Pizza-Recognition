@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
 
 part 'pizza_event.dart';
 part 'pizza_state.dart';
@@ -31,9 +32,11 @@ class PizzaBloc extends Bloc<PizzaEvent, PizzaState> {
   }
 
   Stream<PizzaState> _mapNewImageButtonPressedToState() async* {
-    // Use image picker for gallery here and update the image path
-    yield (state as ModelLoadSuccess).updateImagePath(newImagePath: 'new path');
-    add(PredictImageRequested());
+    PickedFile imageFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    if (imageFile != null) {
+      yield (state as ModelLoadSuccess).updateImagePath(newImagePath: imageFile.path);
+      add(PredictImageRequested());
+    }
   }
 
   Stream<PizzaState> _mapPredictImageRequestedToState() async* {
