@@ -11,27 +11,34 @@ class UninitializedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 244, 235, 193),
       body: SafeArea(
-        child: _isLoading? OnLoad(): OnFailure(),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                _isLoading
+                ? 'Loading...'
+                : 'Failed...',
+                style: GoogleFonts.openSans(fontSize: 16.0),
+              ),
+              SizedBox(height: 19.0),
+              Container(
+                width: 300.0,
+                height: 300.0,
+                child: Image.asset(
+                  _isLoading
+                  ? 'assets/images/splash.png'
+                  : 'assets/images/failure.png',
+                  fit: BoxFit.cover,
+                  alignment: Alignment.topCenter,
+                ),
+              ),
+            ],
+          )
+        ),
       ),
-    );
-  }
-}
-
-class OnLoad extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text('Loading', style: GoogleFonts.openSans()),
-    );
-  }
-}
-
-class OnFailure extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text('Failed', style: GoogleFonts.openSans()),
     );
   }
 }

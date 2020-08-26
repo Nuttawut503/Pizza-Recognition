@@ -8,6 +8,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 244, 235, 193),
       body: SafeArea(
         child: Stack(
           children: [
@@ -15,6 +16,7 @@ class HomeScreen extends StatelessWidget {
             Positioned(
               bottom: 0,
               left: 0,
+              right: 0,
               child: FloatingButtons(),
             ),
             PictureAnalysis(),
@@ -31,15 +33,25 @@ class FloatingButtons extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(12.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           RaisedButton(
+            color: Colors.redAccent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+              side: BorderSide(color: Colors.black, width: 1.9)
+            ),
             onPressed: () => BlocProvider.of<PizzaBloc>(context).add(ImageCleared()),
-            child: Text('RESET', style: GoogleFonts.openSans()),
+            child: Text('Reset', style: GoogleFonts.openSans(color: Colors.white)),
           ),
           RaisedButton(
+            color: Colors.greenAccent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+              side: BorderSide(color: Colors.black, width: 1.9)
+            ),
             onPressed: () => BlocProvider.of<PizzaBloc>(context).add(NewImageButtonPressed()),
-            child: Text('UPLOAD', style: GoogleFonts.openSans()),
+            child: Text('Upload an image', style: GoogleFonts.openSans()),
           ),
         ],
       ),
