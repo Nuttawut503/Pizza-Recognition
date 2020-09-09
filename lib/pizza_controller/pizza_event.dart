@@ -9,8 +9,8 @@ abstract class PizzaEvent extends Equatable {
 
 class AppStarted extends PizzaEvent {}
 
-class NewImageButtonPressed extends PizzaEvent {}
+class UploadImageButtonPressed extends PizzaEvent {}
 
 class PredictImageRequested extends PizzaEvent {}
 
-class ImageCleared extends PizzaEvent {}
+class ResetButtonPressed extends PizzaEvent {}

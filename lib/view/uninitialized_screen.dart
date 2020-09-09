@@ -16,12 +16,14 @@ class UninitializedScreen extends StatelessWidget {
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 _isLoading
-                ? 'Loading...'
-                : 'Failed...',
+                ? 'Loading an AI model...'
+                : 'Something went wrong...\nやべぇ',
                 style: GoogleFonts.openSans(fontSize: 16.0),
+                textAlign: TextAlign.center,
               ),
               SizedBox(height: 19.0),
               Container(
@@ -29,14 +31,14 @@ class UninitializedScreen extends StatelessWidget {
                 height: 300.0,
                 child: Image.asset(
                   _isLoading
-                  ? 'assets/images/splash.png'
-                  : 'assets/images/failure.png',
+                  ? 'assets/images/model_load_process.png'
+                  : 'assets/images/model_load_failure.png',
                   fit: BoxFit.cover,
-                  alignment: Alignment.topCenter,
+                  alignment: Alignment.center,
                 ),
               ),
             ],
-          )
+          ),
         ),
       ),
     );

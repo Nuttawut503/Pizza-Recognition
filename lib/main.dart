@@ -27,14 +27,11 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: BlocBuilder<PizzaBloc, PizzaState>(
-        buildWhen: (previousState, currentState) {
-          return previousState.runtimeType != currentState.runtimeType;
-        },
         builder: (context, state) {
-          if (state is ModelLoadSuccess) {
-            return HomeScreen();
+          if (state is Uninitialized) {
+            return UninitializedScreen(isLoading: state.isLoading);
           }
-          return UninitializedScreen(isLoading: state is Uninitialized);
+          return HomeScreen();
         },
       ),
     );

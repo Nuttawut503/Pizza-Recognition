@@ -7,83 +7,98 @@ abstract class PizzaState extends Equatable {
   List<Object> get props => [];
 }
 
-class Uninitialized extends PizzaState {}
+@immutable
+class Uninitialized extends PizzaState {
+  final bool isLoading;
+
+  Uninitialized({
+    @required this.isLoading,
+  });
+
+  factory Uninitialized.loading() {
+    return Uninitialized(
+      isLoading: true,
+    );
+  }
+
+  factory Uninitialized.failure() {
+    return Uninitialized(
+      isLoading: false,
+    );
+  }
+
+  @override
+  List<Object> get props => [isLoading];
+
+  @override
+  String toString() {
+    return '''Uninitialized {
+      'isLoading': $isLoading,
+    }''';
+  }
+}
 
 class ModelLoadFailure extends PizzaState {}
 
 @immutable
-class ModelLoadSuccess extends PizzaState {
+class Initialized extends PizzaState {
   final String imagePath;
-  final bool inPredict;
-  final bool hasError;
+  final bool isPredicting;
   final double confidentRate;
 
-  const ModelLoadSuccess({
+  Initialized({
     @required this.imagePath,
-    @required this.inPredict,
-    @required this.hasError,
+    @required this.isPredicting,
     @required this.confidentRate,
   });
 
-  factory ModelLoadSuccess.empty() {
-    return ModelLoadSuccess(
+  factory Initialized.defaultState() {
+    return Initialized(
       imagePath: null,
-      inPredict: false,
-      hasError: null,
+      isPredicting: false,
       confidentRate: null,
     );
   }
 
-  ModelLoadSuccess updateImagePath({@required String newImagePath}) {
+  Initialized updateImagePath({@required String newImagePath}) {
     return _copyWith(
       imagePath: newImagePath,
     );
   }
 
-  ModelLoadSuccess predictStarts() {
+  Initialized predictStarts() {
     return _copyWith(
-      inPredict: true,
+      isPredicting: true,
     );
   }
 
-  ModelLoadSuccess predictSuccess({@required double confidentRate}) {
+  Initialized updatePredictResult({@required double confidentRate}) {
     return _copyWith(
-      inPredict: false,
-      hasError: false,
-      confidentRate: confidentRate,
+      isPredicting: false,
+      confidentRate: num.parse(confidentRate.toStringAsFixed(4)) * 100,
     );
   }
 
-  ModelLoadSuccess predictFailure() {
-    return _copyWith(
-      inPredict: false,
-      hasError: true,
-    );
-  }
-
-  ModelLoadSuccess _copyWith({
+  Initialized _copyWith({
     String imagePath,
-    bool inPredict,
-    bool hasError,
+    bool isPredicting,
     double confidentRate,
   }) {
-    return ModelLoadSuccess(
+    return Initialized(
       imagePath: imagePath ?? this.imagePath,
-      inPredict: inPredict ?? this.inPredict,
-      hasError: hasError ?? this.hasError,
+      isPredicting: isPredicting ?? this.isPredicting,
       confidentRate: confidentRate ?? this.confidentRate,
     );
   }
 
   @override
-  List<Object> get props => [imagePath, inPredict, hasError, confidentRate];
+  List<Object> get props => [imagePath, isPredicting, confidentRate];
 
   @override
   String toString() {
-    return '''ModelLoadSuccess {
+    return '''Initialized {
       'imagePath': $imagePath,
-      'inPredict': $inPredict,
-      'hasError': $hasError,
+      'isPredicting': $isPredicting,
       'confidentRate': $confidentRate
     }''';
   }
