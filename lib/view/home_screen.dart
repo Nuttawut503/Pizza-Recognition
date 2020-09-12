@@ -150,8 +150,8 @@ class FloatingImage extends StatelessWidget {
           ? MediaQuery.of(context).size.height * 0.1
           : MediaQuery.of(context).size.height / 2.0 - (MediaQuery.of(context).size.width / 9.0 * 16 * 0.4)
         ),
-        width: (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height > 0.5625)? MediaQuery.of(context).size.height * 0.25: MediaQuery.of(context).size.width * 0.25,
-        height: (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height > 0.5625)? MediaQuery.of(context).size.height * 0.25: MediaQuery.of(context).size.width * 0.25,
+        width: (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height > 0.5625)? MediaQuery.of(context).size.height * 0.2: MediaQuery.of(context).size.width * 0.2,
+        height: (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height > 0.5625)? MediaQuery.of(context).size.height * 0.2: MediaQuery.of(context).size.width * 0.2,
         decoration: BoxDecoration(
           color: Colors.black,
           border: Border.all(),
