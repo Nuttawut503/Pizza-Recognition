@@ -75,7 +75,7 @@ class Initialized extends PizzaState {
   Initialized updatePredictResult({@required double confidentRate}) {
     return _copyWith(
       isPredicting: false,
-      confidentRate: num.parse(confidentRate.toStringAsFixed(4)) * 100,
+      confidentRate: num.parse((confidentRate * 100).toStringAsFixed(2)),
     );
   }
 

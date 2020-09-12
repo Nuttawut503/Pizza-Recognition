@@ -37,7 +37,7 @@ class PizzaBloc extends Bloc<PizzaEvent, PizzaState> {
         labels: 'assets/tflite/labels.txt'
       );
       await player.load('ding.mp3');
-      await Future.delayed(Duration(milliseconds: max(0, 1000 - DateTime.now().millisecondsSinceEpoch + startTime)));
+      await Future.delayed(Duration(milliseconds: max(0, 1500 - DateTime.now().millisecondsSinceEpoch + startTime)));
       yield Initialized.defaultState();
     } catch (_) {
       yield Uninitialized.failure();
@@ -59,9 +59,11 @@ class PizzaBloc extends Bloc<PizzaEvent, PizzaState> {
     final startTime = DateTime.now().millisecondsSinceEpoch;
     final output = await Tflite.runModelOnImage(
       path: (state as Initialized).imagePath,
+      // imageStd: 255.0,
+      // numResults: 2,
+      // threshold: 0.2,
     );
     await Future.delayed(Duration(milliseconds: max(0, 2500 - DateTime.now().millisecondsSinceEpoch + startTime)));
-    print(output);
     yield (state as Initialized).updatePredictResult(confidentRate: output[0]['confidence'] as double);
   }
 

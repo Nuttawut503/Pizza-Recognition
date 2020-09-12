@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Pizza_Recognition/pizza_controller/pizza_bloc.dart';
@@ -53,7 +54,16 @@ class HomeScreen extends StatelessWidget {
 
 class FloatingText extends StatelessWidget {
   String getDescriptionTextByState(Initialized currentState) {
-    return '';
+    if (currentState.imagePath == null) {
+      return 'Hello World !!';
+    } else if (currentState.isPredicting == true) {
+      return 'Please wait, the program is working...';
+    } else if (currentState.confidentRate == null) {
+      return 'Your image has been uploaded';
+    } else if (currentState.confidentRate > 80) {
+      return 'You uploaded a picture of pizza\n(confidence: ${currentState.confidentRate} %)';
+    }
+    return 'You didn\'t upload a picture of pizza\n(confidence: ${currentState.confidentRate} %)';
   }
 
   @override
@@ -64,17 +74,32 @@ class FloatingText extends StatelessWidget {
           return Align(
             alignment: Alignment.topCenter,
             child: Container(
-              margin: EdgeInsets.only(top: 12.0),
+              margin: EdgeInsets.only(top: 16.0),
+              padding: EdgeInsets.all(12.0),
               decoration: BoxDecoration(
-
+                borderRadius: BorderRadius.all(Radius.circular(9.0)),
+                color: Colors.white,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(getDescriptionTextByState(state), style: GoogleFonts.openSans()),
+                  Text(getDescriptionTextByState(state), style: GoogleFonts.openSans(fontSize: 14.0), textAlign: TextAlign.center),
                   if (state.confidentRate != null)
-                    RaisedButton(
-                      onPressed: () => BlocProvider.of<PizzaBloc>(context).add(ResetButtonPressed())
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(height: 12.0),
+                        ClipOval(
+                          child: Material(
+                            color: Colors.greenAccent,
+                            child: InkWell(
+                              splashColor: Colors.green,
+                              child: SizedBox(width: 36, height: 36, child: Icon(FontAwesomeIcons.redo, size: 15.0,)),
+                              onTap: () => BlocProvider.of<PizzaBloc>(context).add(ResetButtonPressed()),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                 ],
               )
@@ -120,10 +145,15 @@ class FloatingImage extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        margin: EdgeInsets.only(bottom: 0.0),
-        width: 0.0,
-        height: 0.0,
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.width / MediaQuery.of(context).size.height > 0.5625
+          ? MediaQuery.of(context).size.height * 0.1
+          : MediaQuery.of(context).size.height / 2.0 - (MediaQuery.of(context).size.width / 9.0 * 16 * 0.4)
+        ),
+        width: (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height > 0.5625)? MediaQuery.of(context).size.height * 0.25: MediaQuery.of(context).size.width * 0.25,
+        height: (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height > 0.5625)? MediaQuery.of(context).size.height * 0.25: MediaQuery.of(context).size.width * 0.25,
         decoration: BoxDecoration(
+          color: Colors.black,
           border: Border.all(),
           borderRadius: BorderRadius.circular(6.0)
         ),
