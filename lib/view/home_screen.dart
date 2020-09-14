@@ -55,9 +55,9 @@ class HomeScreen extends StatelessWidget {
 class FloatingText extends StatelessWidget {
   String getDescriptionTextByState(Initialized currentState) {
     if (currentState.imagePath == null) {
-      return 'Hello World !!';
+      return 'Welcome to PizzaNotPizza\nUpload a picture and I will check it';
     } else if (currentState.isPredicting == true) {
-      return 'Please wait, the program is working...';
+      return 'Please wait, I\'m checking your picture...';
     } else if (currentState.confidentRate == null) {
       return 'Your image has been uploaded';
     } else if (currentState.confidentRate > 80) {
@@ -83,7 +83,7 @@ class FloatingText extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(getDescriptionTextByState(state), style: GoogleFonts.openSans(fontSize: 14.0), textAlign: TextAlign.center),
+                  Text(getDescriptionTextByState(state), style: GoogleFonts.openSans(fontSize: 15.0), textAlign: TextAlign.center),
                   if (state.confidentRate != null)
                     Column(
                       mainAxisSize: MainAxisSize.min,
@@ -126,7 +126,7 @@ class FloatingButton extends StatelessWidget {
             side: BorderSide(color: Colors.black, width: 1.9)
           ),
           onPressed: () => BlocProvider.of<PizzaBloc>(context).add(UploadImageButtonPressed()),
-          child: Text('Upload a picture of pizza', style: GoogleFonts.openSans()),
+          child: Text('Upload a picture', style: GoogleFonts.openSans()),
         ),
       ),
     );
@@ -150,10 +150,10 @@ class FloatingImage extends StatelessWidget {
           ? MediaQuery.of(context).size.height * 0.1
           : MediaQuery.of(context).size.height / 2.0 - (MediaQuery.of(context).size.width / 9.0 * 16 * 0.4)
         ),
-        width: (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height > 0.5625)? MediaQuery.of(context).size.height * 0.2: MediaQuery.of(context).size.width * 0.2,
-        height: (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height > 0.5625)? MediaQuery.of(context).size.height * 0.2: MediaQuery.of(context).size.width * 0.2,
+        width: (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height > 0.5625)? MediaQuery.of(context).size.height * 0.3: MediaQuery.of(context).size.width * 0.3,
+        height: (MediaQuery.of(context).size.width / MediaQuery.of(context).size.height > 0.5625)? MediaQuery.of(context).size.height * 0.3: MediaQuery.of(context).size.width * 0.3,
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: Colors.black.withOpacity(0.5),
           border: Border.all(),
           borderRadius: BorderRadius.circular(6.0)
         ),
